@@ -1,0 +1,37 @@
+=============
+REQUIREMENTS
+=============
+
+Insert exectuable
+Create a before snapshot of VDMK
+Create a before snapshot of memory
+Deploy executable
+Capture network traffic during deployment
+Create a during snapshot of VDMK after 'X' seconds
+Create a during snapshot of memory after 'X' seconds
+Create a after snapshot of VDMK after 'X' minutes
+Create a after snapshot of memory after 'X' minutes
+
+
+============
+ANALYSIS REQUIREMENTS
+============
+
+Create a before snapshot of the registry
+Create a during snapshot of the registry
+Create a after snapshot of the registry
+Extract and list MostRecentlyRun registry keys
+Execute KDiff
+Execute MFT2CSV
+Hash files contained within MFT 
+Calculate hash of files contained within the file system. Note any differences
+Execute Log2Timeline
+Note new files that have been created after 'X' timestamp
+
+
+============
+OTHER REQUIREMENTS
+============
+
+Create whitelist of known 'safe' files. Hash if possible.
+Create custom levels of anaylsis (basic, full scan)
