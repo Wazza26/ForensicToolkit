@@ -2,37 +2,44 @@
 
 import subprocess
 import argparse
-
+import os
 
 #Introduction to the program. First function to run. Used to gather the users' options
-def intro():
+def launchScreen():
     print ("Forensic Toolkit")
-    print ("v1.0 - 2016")
 
-    scanOption = input("Please choose from the following options: ")
-
-    print ("Option X selected")
-
-#Function to generate snapshots throughout the analysis. 
-#Snapshot 1: Taken after the malware has been placed onto the virtual machine but not executed
-#Snapshot 2: Taken once the malware has been executed
-#Snapshot 3: Taken after the malware has run (ie after a period of 'X' minutes)
 def generatingSnapshots():
     print ("Generating snapshots....")
 
 
 def vmwareCLIargparse():
-    parser = argparse.ArgumentParser(description="VMWare CLI")
-    parser.add_argument("-s", "start", required=True, help="Starts the Virtual Machine") 
-    my_args = parser.parse_args()
-    return argparse.prompttolaunchVM(my_args)
+    parser = argparse.ArgumentParser(description="VMWare CLI required arguements")
+    parser.add_argument("filepath", help="Enter file path of .VMX")
+    args = parser.parse_args()
+    return args.filepath
+
+#Pushes directory on CMD to point where vmrun executable is
+def pushd():
+    previous_dir = os.getcwd()
+    vmPath = "C:\Program Files (x86)\\VMware\\VMware Workstation\\"
+    os.chdir(vmPath)
 
 #Launching the virtual machine via VMWare CLI
-def executingVM():
+def executingVM(filepath):
+    pushd()
     print ("Launching Virtual Machine....")
-       
+    print (filepath)
+    subprocess.call("vmrun start", shell="True", args=["\"" + filepath + "\""])
     
-    #vmrun start "C:\Users\jwasley\Documents\Virtual Machines\Windows 10 x64\Windows 10 x64.vmx"
+#def generatingSnapshot():
+#   print ("Launching Virtual Machine....")
+#  subprocess.call("vmrun snapshot", shell="True")
+#def stoppingVM():
+#   print ("Launching Virtual Machine....")
+#   subprocess.call("vmrun stop", shell="True")
 
-intro()
+launchScreen()
+filepath = vmwareCLIargparse()
+executingVM(filepath)
+
 #executingVM()
